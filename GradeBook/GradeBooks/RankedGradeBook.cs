@@ -27,8 +27,6 @@ namespace GradeBook.GradeBooks
                 return 'C';
             else if (grades[(studentGroup * 4) - 1] <= averageGrade)
                 return 'D';
-            else if (grades[(studentGroup * 5) - 1] <= averageGrade)
-                return 'E';
             else
                 return 'F';
         }
