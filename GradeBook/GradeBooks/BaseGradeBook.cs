@@ -11,12 +11,14 @@ namespace GradeBook.GradeBooks
     public abstract  class BaseGradeBook
     {
         public string Name { get; set; }
+        public bool IsWeighted { get; set; }
         public List<Student> Students { get; set; }
         public GradeBookType Type { get; set; }
 
-        public BaseGradeBook(string name)
+        protected BaseGradeBook(string name, bool isWeighted)
         {
             Name = name;
+            IsWeighted = isWeighted;
             Students = new List<Student>();
         }
 
@@ -104,20 +106,39 @@ namespace GradeBook.GradeBooks
             }
         }
 
-        public virtual double GetGPA(char letterGrade, StudentType studentType)
+        public virtual int GetGPA(char letterGrade, StudentType studentType)
         {
-            switch (letterGrade)
+            if(IsWeighted && (studentType == StudentType.Honors||studentType == StudentType.DualEnrolled))
             {
-                case 'A':
-                    return 4;
-                case 'B':
-                    return 3;
-                case 'C':
-                    return 2;
-                case 'D':
-                    return 1;
-                case 'F':
-                    return 0;
+                switch (letterGrade)
+                {
+                    case 'A':
+                        return 5;
+                    case 'B':
+                        return 4;
+                    case 'C':
+                        return 3;
+                    case 'D':
+                        return 2;
+                    case 'F':
+                        return 1;
+                }
+            }
+            else
+            {
+                switch (letterGrade)
+                {
+                    case 'A':
+                        return 4;
+                    case 'B':
+                        return 3;
+                    case 'C':
+                        return 2;
+                    case 'D':
+                        return 1;
+                    case 'F':
+                        return 0;
+                }
             }
             return 0;
         }
